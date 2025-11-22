@@ -42,13 +42,14 @@
           pre-commit-checks = pre-commit-hooks.lib.${system}.run {
             src = ./.;
             hooks = {
-              nixfmt-rfc-style.enable = true;
             };
           };
         };
 
         formatter = pkgs.nixfmt-rfc-style;
-        packages = {default = nvim;};
+        packages = {
+          default = nvim;
+        };
         devShells = {
           default = with pkgs; mkShell {inherit (self'.checks.pre-commit-checks) shellHook;};
         };
