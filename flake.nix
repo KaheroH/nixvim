@@ -14,7 +14,7 @@
     nixvim,
     ...
   } @ inputs:
-    flake-parts.lib.mkflake {inherit inputs;} {
+    flake-parts.lib.mkFlake {inherit inputs;} {
       imports = [];
 
       systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin"];
@@ -27,14 +27,18 @@
         ...
       }: let
         nixvimLib = nixvim.lib.${system};
-        nixvim' = nixvim.laegacyPackages.${system};
+        nixvim' = nixvim.legacyPackages.${system};
         nixvimModule = {
           inherit pkgs;
           module = import ./config;
         };
         nvim = nixvim'.makeNixvimWithModule nixvimModule;
       in {
+        formatter = pkgs.nixfmt-rfc-style;
         packages = {default = nvim;};
+        devShells = {
+          default = with pkgs; mkShell {inherit (self'.checks.pre-commit-checks) shellHook;};
+        };
       };
 
       flake = {
