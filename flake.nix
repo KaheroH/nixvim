@@ -5,12 +5,15 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     nixvim.url = "github:nix-community/nixvim";
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+    };
   };
 
   outputs = {
-    self,
     nixpkgs,
     flake-parts,
+    pre-commit-hooks,
     nixvim,
     ...
   } @ inputs:
@@ -34,14 +37,21 @@
         };
         nvim = nixvim'.makeNixvimWithModule nixvimModule;
       in {
+        checks = {
+          default = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
+          pre-commit-checks = pre-commit-hooks.lib.${system}.run {
+            src = ./.;
+            hooks = {
+              nixfmt-rfc-style.enable = true;
+            };
+          };
+        };
+
         formatter = pkgs.nixfmt-rfc-style;
         packages = {default = nvim;};
         devShells = {
           default = with pkgs; mkShell {inherit (self'.checks.pre-commit-checks) shellHook;};
         };
-      };
-
-      flake = {
       };
     };
 }

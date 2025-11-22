@@ -6,7 +6,7 @@
     restore_cursor = {};
   };
 
-  autocmd = [
+  autoCmd = [
     {
       group = "restore_cursor";
       event = ["BufReadPost"];
