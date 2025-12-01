@@ -2,20 +2,16 @@
   colorschemes = {
     rose-pine = {
       settings = {
-#        before_highlights = ''
-#          function(highlights)
-#            return {
-#            CursorLineNr = { fg = highlights.peach, style = {} },
-#            NavicText = { fg = highlights.text },
-#            }
-#          end
-#        '';
+        enable = true;
+        #        before_highlights = ''
+        #          function(highlights)
+        #            return {
+        #            CursorLineNr = { fg = highlights.peach, style = {} },
+        #            NavicText = { fg = highlights.text },
+        #            }
+        #          end
+        #        '';
         dark_variant = "moon";
-        enable = {
-          legacy_highlights = false;
-          migrations = true;
-          terminal = false;
-        };
         extend_background_behind_borders = true;
         groups = {
           border = "muted";

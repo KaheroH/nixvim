@@ -8,5 +8,8 @@ _: {
 
     # Themes
     ./plugins/themes
+
+    # UI
+    ./plugins/ui/startup.nix
   ];
 }
