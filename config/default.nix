@@ -7,7 +7,6 @@ _: {
     ./settings.nix
 
     # Themes
-
     ./plugins/themes
   ];
 }
