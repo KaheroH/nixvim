@@ -1,4 +1,4 @@
-_: {
+{
   imports = [
     # General Configuration
     ./auto_cmds.nix
@@ -9,7 +9,23 @@ _: {
     # Themes
     ./plugins/themes
 
+    # Editor
+    ./plugins/editor/navic.nix
+    ./plugins/editor/neo-tree.nix
+    ./plugins/editor/undotree.nix
+    ./plugins/editor/illuminate.nix
+    ./plugins/editor/indent-blankline.nix
+    ./plugins/editor/treesitter.nix
+    ./plugins/editor/noice.nix
+
     # UI
     ./plugins/ui/startup.nix
+
+    # Utilities
+    ./plugins/utils/telescope.nix
+    ./plugins/utils/which-key.nix
+
+    # LSP
+    ./plugins/lsp/lsp.nix
   ];
 }
