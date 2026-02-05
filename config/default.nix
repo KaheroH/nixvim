@@ -20,6 +20,8 @@
 
     # UI
     ./plugins/ui/startup.nix
+    ./plugins/ui/bufferline.nix
+    ./plugins/ui/lualine.nix
 
     # Utilities
     ./plugins/utils/telescope.nix
