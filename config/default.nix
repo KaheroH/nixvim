@@ -9,6 +9,9 @@
     # Themes
     ./plugins/themes
 
+    # Completion
+    ./plugins/cmp/blink-cmp.nix
+
     # Editor
     ./plugins/editor/navic.nix
     ./plugins/editor/neo-tree.nix
