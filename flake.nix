@@ -10,50 +10,59 @@
     };
   };
 
-  outputs = {
-    nixpkgs,
-    flake-parts,
-    pre-commit-hooks,
-    nixvim,
-    ...
-  } @ inputs:
-    flake-parts.lib.mkFlake {inherit inputs;} {
-      imports = [];
+  outputs =
+    {
+      nixpkgs,
+      flake-parts,
+      pre-commit-hooks,
+      nixvim,
+      ...
+    }@inputs:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      imports = [ ];
 
-      systems = ["x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin"];
-      perSystem = {
-        config,
-        self',
-        inputs',
-        pkgs,
-        system,
-        ...
-      }: let
-        nixvimLib = nixvim.lib.${system};
-        nixvim' = nixvim.legacyPackages.${system};
-        nixvimModule = {
-          inherit pkgs;
-          module = import ./config;
-        };
-        nvim = nixvim'.makeNixvimWithModule nixvimModule;
-      in {
-        checks = {
-          default = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
-          pre-commit-checks = pre-commit-hooks.lib.${system}.run {
-            src = ./.;
-            hooks = {
-              nixfmt-rfc-style.enable = true;
+      systems = [
+        "x86_64-linux"
+        "aarch64-linux"
+        "aarch64-darwin"
+        "x86_64-darwin"
+      ];
+      perSystem =
+        {
+          config,
+          self',
+          inputs',
+          pkgs,
+          system,
+          ...
+        }:
+        let
+          nixvimLib = nixvim.lib.${system};
+          nixvim' = nixvim.legacyPackages.${system};
+          nixvimModule = {
+            inherit pkgs;
+            module = import ./config;
+          };
+          nvim = nixvim'.makeNixvimWithModule nixvimModule;
+        in
+        {
+          checks = {
+            default = nixvimLib.check.mkTestDerivationFromNixvimModule nixvimModule;
+            pre-commit-checks = pre-commit-hooks.lib.${system}.run {
+              src = ./.;
+              hooks = {
+                nixfmt-rfc-style.enable = true;
+              };
             };
           };
-        };
 
-        formatter = pkgs.nixfmt-rfc-style;
-        packages = {
-          default = nvim;
+          formatter = pkgs.nixfmt-rfc-style;
+          packages = {
+            default = nvim;
+          };
+          devShells = {
+            default = with pkgs; mkShell { inherit (self'.checks.pre-commit-checks) shellHook; };
+          };
         };
-        devShells = {
-          default = with pkgs; mkShell {inherit (self'.checks.pre-commit-checks) shellHook;};
-        };
-      };
     };
 }
