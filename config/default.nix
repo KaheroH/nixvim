@@ -29,6 +29,7 @@
     # Utilities
     ./plugins/utils/telescope.nix
     ./plugins/utils/which-key.nix
+    ./plugins/utils/extra_plugins.nix
 
     # LSP
     ./plugins/lsp/lsp.nix

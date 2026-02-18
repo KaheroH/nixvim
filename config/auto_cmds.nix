@@ -1,15 +1,15 @@
 {
   autoGroups = {
-    highlight_yank = {};
-    vim_enter = {};
-    indentscope = {};
-    restore_cursor = {};
+    highlight_yank = { };
+    vim_enter = { };
+    indentscope = { };
+    restore_cursor = { };
   };
 
   autoCmd = [
     {
       group = "restore_cursor";
-      event = ["BufReadPost"];
+      event = [ "BufReadPost" ];
       pattern = "*";
       callback = {
         __raw = ''

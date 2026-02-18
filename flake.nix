@@ -12,7 +12,7 @@
 
   outputs =
     {
-      nixpkgs,
+      nixpkg,
       flake-parts,
       pre-commit-hooks,
       nixvim,
