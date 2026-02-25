@@ -28,17 +28,7 @@
       enable = true;
       settings = {
         auto_plugins = false;
-        background = "dark";
-        cache = false;
-        colors = {
-          palette = { };
-          theme = {
-            canvas = { };
-            ink = { };
-          };
-        };
-        compile = false;
-        dim_inactive = false;
+        diag_background = true;
         gutter = false;
         styles = {
           comments = {
@@ -46,18 +36,27 @@
           };
           functions = {
             italic = true;
+            bold = true;
           };
           keywords = {
             italic = true;
+            bold = true;
           };
-          statement_style = {
+          statement_type = {
+            bold = true;
+          };
+          type = {
             bold = true;
           };
         };
-        terminal_colors = false;
         theme = "ink";
         transparent = true;
-        undercurl = true;
+        color_balance = {
+          ink = {
+            brightness = 0;
+            saturation = 0.4;
+          };
+        };
       };
     };
   };
