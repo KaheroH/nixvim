@@ -1,7 +1,7 @@
 {
   colorschemes = {
     rose-pine = {
-      enable = false;
+      enable = true;
 
       settings = {
         before_highlight = ''
@@ -25,7 +25,7 @@
     };
 
     kanagawa-paper = {
-      enable = true;
+      enable = false;
       settings = {
         auto_plugins = false;
         diag_background = true;
@@ -57,6 +57,13 @@
             saturation = 0.4;
           };
         };
+      };
+    };
+
+    kanagawa = {
+      enable = false;
+      settings = {
+        transparent = true;
       };
     };
   };
