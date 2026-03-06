@@ -19,6 +19,11 @@
       enable = true;
       inlayHints = true;
       servers = {
+        rust_analyzer = {
+          enable = true;
+          installRustc = true;
+          installCargo = true;
+        };
         roslyn_ls = {
           enable = true;
         };
