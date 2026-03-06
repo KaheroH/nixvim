@@ -1,6 +1,7 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   config = {
-    extraConfigLuaPre = '''';
+    extraConfigLuaPre = "";
 
     clipboard = {
       providers.wl-copy.enable = pkgs.stdenv.isLinux;

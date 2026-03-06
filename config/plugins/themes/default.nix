@@ -12,7 +12,6 @@
             }
           end
         '';
-        dark_variant = "moon";
         extend_background_behind_borders = true;
         groups = {
           border = "muted";
@@ -22,6 +21,49 @@
         styles = {
           transparency = true;
         };
+      };
+    };
+
+    kanagawa-paper = {
+      enable = false;
+      settings = {
+        auto_plugins = false;
+        diag_background = true;
+        gutter = false;
+        styles = {
+          comments = {
+            italic = true;
+          };
+          functions = {
+            italic = true;
+            bold = true;
+          };
+          keywords = {
+            italic = true;
+            bold = true;
+          };
+          statement_type = {
+            bold = true;
+          };
+          type = {
+            bold = true;
+          };
+        };
+        theme = "ink";
+        transparent = true;
+        color_balance = {
+          ink = {
+            brightness = 0;
+            saturation = 0.4;
+          };
+        };
+      };
+    };
+
+    kanagawa = {
+      enable = false;
+      settings = {
+        transparent = true;
       };
     };
   };
