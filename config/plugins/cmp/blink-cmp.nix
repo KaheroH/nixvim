@@ -35,7 +35,7 @@
           };
 
           menu = {
-            border = "single";
+            border = "rounded";
             draw = {
               components = {
                 kind_icon = {
@@ -91,7 +91,6 @@
           "[\"<S-Tab>\"]" = [ "insert_prev" ];
         };
         signature = {
-          border = "single";
           enabled = true;
         };
         sources = {
