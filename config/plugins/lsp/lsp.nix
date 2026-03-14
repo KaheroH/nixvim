@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 {
   extraPlugins = with pkgs.vimPlugins; [
     ansible-vim
@@ -24,9 +24,7 @@
           installRustc = true;
           installCargo = true;
         };
-        roslyn_ls = {
-          enable = true;
-        };
+        roslyn_ls.enable = true;
         puppet = {
           enable = true;
           package = pkgs.vimPlugins.vim-puppet;
@@ -35,38 +33,53 @@
           enable = true;
           package = pkgs.powershell-editor-services;
         };
-        html = {
+        html.enable = true;
+        lua_ls.enable = true;
+        nixd = {
           enable = true;
+          settings =
+            let
+              # The wrapper curries `_nixd-expr.nix` with the `self` and `system` args
+              # This makes `init.lua` a bit DRYer and more readable
+              wrapper = builtins.toFile "expr.nix" ''
+                import ${./_nixd-expr.nix} {
+                  system = ${builtins.toJSON pkgs.stdenv.hostPlatform.system};
+                }
+              '';
+              # withFlakes brings `local` and `global` flakes into scope, then applies `expr`
+              withFlakes = expr: "with import ${wrapper}; " + expr;
+            in
+            {
+              nixpkgs.expr = withFlakes ''
+                import (if local ? lib.version then local else local.inputs.nixpkgs or global.inputs.nixpkgs) { }
+              '';
+              options = rec {
+                flake-parts.expr = withFlakes "local.debug.options or global.debug.options";
+                nixos.expr = withFlakes "global.nixosConfigurations.desktop.options";
+                home-manager.expr = "${nixos.expr}.home-manager.users.type.getSubOptions [ ]";
+                nixvim.expr = withFlakes "global.nixvimConfigurations.\${system}.default.options";
+              };
+              diagnostic = {
+                # Suppress noisy warnings
+                suppress = [
+                  "sema-escaping-with"
+                  "var-bind-to-this"
+                ];
+              };
+            };
         };
-        lua_ls = {
-          enable = true;
-        };
-        nil_ls = {
-          enable = true;
-        };
-        ts_ls = {
-          enable = true;
-        };
-        marksman = {
-          enable = true;
-        };
-        pyright = {
-          enable = true;
-        };
-        gopls = {
-          enable = true;
-        };
-        terraformls = {
-          enable = true;
-        };
-        jsonls = {
-          enable = true;
-        };
+        nushell.enable = true;
+        ts_ls.enable = true;
+        marksman.enable = true;
+        pyright.enable = true;
+        gopls.enable = true;
+        terraformls.enable = true;
+        jsonls.enable = true;
         helm_ls = {
           enable = true;
           extraOptions = {
             settings = {
-              "helm_ls" = {
+              helm_ls = {
                 yamlls = {
                   path = "${pkgs.yaml-language-server}/bin/yaml-language-server";
                 };

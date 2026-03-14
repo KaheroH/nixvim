@@ -1,64 +1,113 @@
 { lib, ... }:
 {
-  plugins.blink-cmp = {
-    enable = true;
-    settings = {
-      appearance = {
-        nerd_font_variant = "normal";
-        use_nvim_cmp_as_default = true;
-      };
-      completion = {
-        accept = {
-          auto_brackets.enabled = true;
+  plugins = {
+    blink-cmp = {
+      enable = true;
+      settings = {
+        appearance = {
+          nerd_font_variant = "normal";
+          use_nvim_cmp_as_default = true;
         };
-
-        documentation = {
-          auto_show = true;
-          auto_show_delay_ms = 250;
-          treesitter_highlighting = true;
-          window.border = "rounded";
+        fuzzy = {
+          sorts = [
+            "exact"
+            "score"
+            "sort_text"
+          ];
         };
-
-        list = {
-          selection.preselect = lib.nixvim.mkRaw ''
-            function(ctx)
-                return ctx.mode == "cmdline" and "auto_insert" or "preselect"
-            end,
-          '';
-        };
-
-        menu = {
-          border = "rounded";
-
-          cmdline_position = lib.nixvim.mkRaw ''
-            function()
-              if vim.g.ui_cmdline_pos ~= nil then
-                local pos = vim.g.ui_cmdline_pos -- (1, 0)-indexed
-                return { pos[1] - 1, pos[2] }
-              end
-              local height = (vim.o.cmdheight == 0) and 1 or vim.o.cmdheight
-              return { vim.o.lines - height, 0 }
-            end
-          '';
-        };
-      };
-      keymap = {
-        preset = "super-tab";
-      };
-      signature = {
-        enabled = true;
-      };
-      sources = {
-        cmdline = [ ];
-        providers = {
-          buffer = {
-            score_offset = -7;
+        completion = {
+          accept = {
+            auto_brackets.enabled = true;
           };
-          lsp = {
-            fallbacks = [ ];
+
+          documentation = {
+            auto_show = true;
+            auto_show_delay_ms = 250;
+            treesitter_highlighting = true;
+            window.border = "rounded";
+          };
+
+          list = {
+            selection = {
+              preselect = false;
+              auto_insert = true;
+            };
+          };
+
+          menu = {
+            border = "single";
+            draw = {
+              components = {
+                kind_icon = {
+                  text = lib.nixvim.mkRaw ''
+                    function(ctx)
+                      if ctx.source_name ~= "Path" then
+                        return require("lspkind").symbol_map[ctx.kind] or "" .. ctx.icon_gap
+                      end
+
+                      local is_unknown_type = vim.tbl_contains({ "link", "socket", "fifo", "char", "block", "unknown" }, ctx.item.data.type)
+                      local mini_icon, _ = require("mini.icons").get(
+                        is_unknown_type and "os" or ctx.item.data.type,
+                        is_unknown_type and "" or ctx.label
+                      )
+
+                      return (mini_icon or ctx.kind_icon) .. ctx.icon_gap
+                    end
+                  '';
+
+                  highlight = lib.nixvim.mkRaw ''
+                    function(ctx)
+                      if ctx.source_name ~= "Path" then return ctx.kind_hl end
+
+                      local is_unknown_type = vim.tbl_contains({ "link", "socket", "fifo", "char", "block", "unknown" }, ctx.item.data.type)
+                      local mini_icon, mini_hl = require("mini.icons").get(
+                        is_unknown_type and "os" or ctx.item.data.type,
+                        is_unknown_type and "" or ctx.label
+                      )
+                      return mini_icon ~= nil and mini_hl or ctx.kind_hl
+                    end
+                  '';
+                };
+              };
+            };
+          };
+        };
+        keymap = {
+          preset = "default";
+          "[\"<Up>\"]" = [
+            "select_prev"
+            "fallback"
+          ];
+          "[\"<Tab>\"]" = [
+            (lib.nixvim.mkRaw ''
+              function(cmp)
+                if has_words_before() then
+                  return cmp.insert_next()
+                end
+              end
+            '')
+            "fallback"
+          ];
+          "[\"<S-Tab>\"]" = [ "insert_prev" ];
+        };
+        signature = {
+          border = "single";
+          enabled = true;
+        };
+        sources = {
+          cmdline = [ ];
+          providers = {
+            buffer = {
+              score_offset = -7;
+            };
+            lsp = { };
+            snippets = { };
           };
         };
       };
     };
+
+    blink-pairs.enable = true;
+
   };
 }
