@@ -87,7 +87,6 @@
             "fallback"
           ];
           "<S-Tab>" = [ "insert_prev" ];
-          "<Enter>" = [ "select" ];
         };
         signature = {
           enabled = true;
