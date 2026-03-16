@@ -74,21 +74,20 @@
         };
         keymap = {
           preset = "default";
-          "[\"<Up>\"]" = [
+          "<Up>" = [
             "select_prev"
             "fallback"
           ];
-          "[\"<Tab>\"]" = [
-            (lib.nixvim.mkRaw ''
-              function(cmp)
-                if has_words_before() then
-                  return cmp.insert_next()
-                end
-              end
-            '')
+          "<Down>" = [
+            "select_prev"
             "fallback"
           ];
-          "[\"<S-Tab>\"]" = [ "insert_prev" ];
+          "<Tab>" = [
+            "insert_next"
+            "fallback"
+          ];
+          "<S-Tab>" = [ "insert_prev" ];
+          "<Enter>" = [ "select" ];
         };
         signature = {
           enabled = true;
