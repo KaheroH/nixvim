@@ -54,10 +54,10 @@
                 import (if local ? lib.version then local else local.inputs.nixpkgs or global.inputs.nixpkgs) { }
               '';
               options = rec {
-                flake-parts.expr = withFlakes "local.debug.options or global.debug.options";
-                nixos.expr = withFlakes "global.nixosConfigurations.desktop.options";
-                home-manager.expr = "${nixos.expr}.home-manager.users.type.getSubOptions [ ]";
-                nixvim.expr = withFlakes "global.nixvimConfigurations.\${system}.default.options";
+                # flake-parts.expr = withFlakes "local.debug.options or global.debug.options";
+                # nixos.expr = withFlakes "global.nixosConfigurations.desktop.options";
+                # home-manager.expr = "${nixos.expr}.home-manager.users.type.getSubOptions [ ]";
+                # nixvim.expr = withFlakes "global.nixvimConfigurations.\${system}.default.options";
               };
               diagnostic = {
                 # Suppress noisy warnings
