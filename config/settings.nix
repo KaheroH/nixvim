@@ -5,6 +5,7 @@
 
     clipboard = {
       providers.wl-copy.enable = pkgs.stdenv.isLinux;
+      providers.xclip.enable = pkgs.stdenv.isLinux;
     };
 
     opts = {
