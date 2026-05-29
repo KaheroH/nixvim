@@ -13,7 +13,7 @@
     }
     {
       mode = "n";
-      key = "<C-j>";
+      key = "<C-n>";
       action = "<C-w>j";
       options = {
         desc = "Go to Lower Window";
@@ -22,7 +22,7 @@
     }
     {
       mode = "n";
-      key = "<C-k>";
+      key = "<C-e>";
       action = "<C-w>k";
       options = {
         desc = "Go to Upper Window";
@@ -31,12 +31,41 @@
     }
     {
       mode = "n";
-      key = "<C-l>";
+      key = "<C-i>";
       action = "<C-w>l";
       options = {
         desc = "Go to Right Window";
         remap = true;
       };
     }
+    {
+      mode = "n";
+      key = "n";
+      action = "j";
+      options = {
+        desc = "Move Down";
+        remap = true;
+      };
+    }
+    {
+      mode = "n";
+      key = "e";
+      action = "k";
+      options = {
+        desc = "Move Up";
+        remap = true;
+      };
+    }
+    {
+      mode = "n";
+      key = "i";
+      action = "l";
+      options = {
+        desc = "Move Left";
+        remap = true;
+      };
+    }
+
+
   ];
 }
