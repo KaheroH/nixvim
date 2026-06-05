@@ -44,7 +44,7 @@
       action = "j";
       options = {
         desc = "Move Down";
-        remap = true;
+        remap = false;
       };
     }
     {
@@ -53,7 +53,7 @@
       action = "k";
       options = {
         desc = "Move Up";
-        remap = true;
+        remap = false;
       };
     }
     {
@@ -62,10 +62,35 @@
       action = "l";
       options = {
         desc = "Move Left";
-        remap = true;
+        remap = false;
       };
     }
-
-
+    {
+      mode = "v";
+      key = "n";
+      action = "j";
+      options = {
+        desc = "Move Down";
+        remap = false;
+      };
+    }
+    {
+      mode = "v";
+      key = "e";
+      action = "k";
+      options = {
+        desc = "Move Up";
+        remap = false;
+      };
+    }
+    {
+      mode = "v";
+      key = "i";
+      action = "l";
+      options = {
+        desc = "Move Left";
+        remap = false;
+      };
+    }
   ];
 }
