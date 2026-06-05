@@ -45,7 +45,7 @@
 
     {
       mode = "n";
-      key = "<S-l>";
+      key = "<S-i>";
       action = "<cmd>BufferLineCycleNext<cr>";
       options = {
         desc = "Cycle to next buffer";
