@@ -197,8 +197,22 @@
         desc = "File browser";
       };
     }
+    {
+      mode = ["n" "i"];
+      key = "<C-o>";
+      action = {
+        __raw = ''
+          function(prompt_bufnr)
+            require('telescope.actions').send_selected_to_qflist(prompt_bufnr, "")
+            vim.cmd('silent cfdo edit')
+          end
+        '';
+      };
+    }
   ];
   extraConfigLua = ''
+    local picker = require('telescope.pickers')
+
     require("telescope").setup{
       pickers = {
         colorscheme = {
