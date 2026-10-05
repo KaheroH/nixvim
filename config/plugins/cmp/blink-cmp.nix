@@ -73,20 +73,15 @@
           };
         };
         keymap = {
-          preset = "default";
-          "<Up>" = [
-            "select_prev"
-            "fallback"
-          ];
-          "<Down>" = [
-            "select_prev"
-            "fallback"
-          ];
+          preset = "enter";
           "<Tab>" = [
-            "insert_next"
+            "select_next"
             "fallback"
           ];
-          "<S-Tab>" = [ "insert_prev" ];
+          "<S-Tab>" = [
+            "select_prev"
+            "fallback"
+          ];
         };
         signature = {
           enabled = true;
