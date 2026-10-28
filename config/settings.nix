@@ -4,7 +4,8 @@
     extraConfigLuaPre = "";
 
     clipboard = {
-      providers.xclip.enable = pkgs.stdenv.hostPlatform.isLinux;
+      register = "unnamedplus";
+      providers.xclip.enable = true;
     };
 
     opts = {
