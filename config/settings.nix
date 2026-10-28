@@ -4,7 +4,7 @@
     extraConfigLuaPre = "";
 
     clipboard = {
-      providers.xclip.enable = pkgs.stdenv.isLinux;
+      providers.xclip.enable = pkgs.stdenv.hostPlatform.isLinux;
     };
 
     opts = {

@@ -25,10 +25,6 @@
           installCargo = true;
         };
         roslyn_ls.enable = true;
-        puppet = {
-          enable = true;
-          package = pkgs.vimPlugins.vim-puppet;
-        };
         powershell_es = {
           enable = true;
           package = pkgs.powershell-editor-services;
